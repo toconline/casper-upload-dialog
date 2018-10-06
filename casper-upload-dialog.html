@@ -97,6 +97,7 @@
 
       uploadSuccessOnUpload () {
         this.options.original = this.uploaded_file_path;
+        this.options.original_file_path = this.original_file_path
         this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
       }
 
