@@ -34,7 +34,8 @@
                                page-title="[[pageTitle]]"
                                upload-url="[[uploadUrl]]"
                                uploaded-file-path="{{uploaded_file_path}}"
-                               original-file-path="{{original_file_path}}">
+                               original-file-path="{{original_file_path}}"
+                               next="Fechar">
     </casper-wizard-upload-page>
   </template>
 
@@ -81,17 +82,20 @@
 
       setOptions (options) {
         super.setOptions(options);
-        this.accept    = options.accept || this.accept;
-        this.uploadUrl = options.upload_url;
+        this.accept                 = options.accept || this.accept;
+        this.uploadUrl              = options.upload_url;
+        this.noCancelOnOutsideClick = false;
+        this.noCancelOnEscKey       = false;
       }
 
       _onOpenedChanged (event) {
+        this.enablePrevious();
+        this.enableNext();
+        this.hideStatusAndProgress();
+        this.$.Upload.clear();
         if ( event.detail.value === true ) {
           this.setTitle(this.options.title || this.title);
           this.setPageTitle('Upload', this.options.pageTitle || this.pageTitle);
-        } else {
-          this.hideStatusAndProgress();
-          this.$.Upload.clear();
         }
       }
 
@@ -99,6 +103,19 @@
         this.options.original = this.uploaded_file_path;
         this.options.original_file_path = this.original_file_path
         this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
+        this.noCancelOnEscKey = this.noCancelOnOutsideClick = true;
+        this.disablePrevious();
+      }
+
+      previousOnUpload () {
+        this.hideStatusAndProgress();
+        this.$.Upload.clear();
+      }
+
+      errorOnUpload (notification) {
+        this.showStatusPage(notification);
+        this.enableNext();
+        this.noCancelOnEscKey = this.noCancelOnOutsideClick = false;
       }
 
       jobCompletedOnUpload (status_code, message, response) {
