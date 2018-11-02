@@ -92,7 +92,6 @@
         this.enablePrevious();
         this.enableNext();
         this.hideStatusAndProgress();
-        this.$.Upload.clear();
         if ( event.detail.value === true ) {
           this.setTitle(this.options.title || this.title);
           this.setPageTitle('Upload', this.options.pageTitle || this.pageTitle);
@@ -103,7 +102,6 @@
         this.options.original = this.uploaded_file_path;
         this.options.original_file_path = this.original_file_path
         this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
-        this.noCancelOnEscKey = this.noCancelOnOutsideClick = true;
         this.disablePrevious();
       }
 
@@ -115,7 +113,6 @@
       errorOnUpload (notification) {
         this.showStatusPage(notification);
         this.enableNext();
-        this.noCancelOnEscKey = this.noCancelOnOutsideClick = false;
       }
 
       jobCompletedOnUpload (status_code, message, response) {
