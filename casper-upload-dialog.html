@@ -101,7 +101,14 @@
       uploadSuccessOnUpload () {
         this.options.original = this.uploaded_file_path;
         this.options.original_file_path = this.original_file_path
-        this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
+        if(this.options.tube != undefined){
+          this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
+        }else{
+          if ( typeof this.options.on_completed === 'function' ) {
+            var callback_status = this.options.on_completed(this.options.original, this.options.original_file_path);
+            this.close();
+          }
+        }
         this.disablePrevious();
       }
 
