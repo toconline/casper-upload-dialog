@@ -89,7 +89,6 @@
       }
 
       _onOpenedChanged (event) {
-        this.enablePrevious();
         this.enableNext();
         this.hideStatusAndProgress();
         if ( event.detail.value === true ) {
@@ -115,22 +114,26 @@
       previousOnUpload () {
         this.hideStatusAndProgress();
         this.$.Upload.clear();
+        this.disablePrevious();
       }
 
       errorOnUpload (notification) {
         this.showStatusPage(notification);
+        this.enablePrevious();
         this.enableNext();
       }
 
-      jobCompletedOnUpload (status_code, message, response) {
+      jobCompletedOnUpload (status_code, notification, response) {
         if ( typeof this.options.on_job_completed === 'function' ) {
-          if ( this.options.on_job_completed(status_code, message, response) === true ) {
-            // Suppress default handling
-            this.close();
-            return;
-          }
+          this.options.on_job_completed(status_code, notification.message, response);
         }
-        this.close();
+        if ( notification.custom === true ) {
+          this.showStatusPage(notification);
+          this.disablePrevious();
+          this.enableNext();
+        } else {
+          this.close();
+        }
       }
 
     }
