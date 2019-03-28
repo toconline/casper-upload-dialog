@@ -18,17 +18,27 @@
   -
  */
 
+import '@casper2020/casper-wizard/casper-wizard.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
 class CasperUploadDialog extends CasperWizard {
   static get template() {
-    return Polymer.html`
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <casper-wizard-upload-page id="Upload" accept="[[accept]]" page-title="[[pageTitle]]" upload-url="[[uploadUrl]]" uploaded-file-path="{{uploaded_file_path}}" original-file-path="{{original_file_path}}" next="Fechar">
-    </casper-wizard-upload-page>
-`;
+    return html`
+      <style>
+        :host {
+          display: block;
+        }
+      </style>
+      <casper-wizard-upload-page
+        id="Upload"
+        next="Fechar"
+        accept="[[accept]]"
+        page-title="[[pageTitle]]"
+        upload-url="[[uploadUrl]]"
+        uploaded-file-path="{{uploaded_file_path}}"
+        original-file-path="{{original_file_path}}">
+      </casper-wizard-upload-page>
+    `;
   }
 
   static get is () {
