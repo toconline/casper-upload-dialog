@@ -10,7 +10,7 @@
   },
   "main": "casper-upload-dialog.js",
   "dependencies": {
-    "@casper2020/casper-wizard": "^1.0.0-rc.2",
+    "@casper2020/casper-wizard": "^1.0.0-rc.3",
     "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
