@@ -1,7 +1,7 @@
 {
   "description": "Generic dialog that uploads a file to a job",
   "name": "@casper2020/casper-upload-dialog",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -10,7 +10,7 @@
   },
   "main": "casper-upload-dialog.js",
   "dependencies": {
-    "@casper2020/casper-wizard": "^1.0.0-rc.5",
+    "@casper2020/casper-wizard": "^1.0.0-rc.6",
     "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
