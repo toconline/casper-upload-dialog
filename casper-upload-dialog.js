@@ -89,14 +89,18 @@ class CasperUploadDialog extends CasperWizard {
     }
   }
 
-  uploadSuccessOnUpload () {
+  uploadSuccessOnUpload (uploadedFile, fileInfo) {
     this.options.original = this.uploaded_file_path;
-    this.options.original_file_path = this.original_file_path
-    if(this.options.tube != undefined){
+    this.options.file = this.uploaded_file_path;
+    this.options.file_content_type = fileInfo.type;
+    this.options.file_content_length = fileInfo.size;
+    this.options.original_file_path = this.original_file_path;
+    this.options.original_file = this.original_file_path;
+    if (this.options.tube != undefined) {
       this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
-    }else{
+    } else {
       if ( typeof this.options.on_completed === 'function' ) {
-        var callback_status = this.options.on_completed(this.options.original, this.options.original_file_path);
+        let callback_status = this.options.on_completed(this.options.original, this.options.original_file_path, fileInfo.type);
         this.close();
       }
     }
