@@ -23,7 +23,7 @@ import { CasperWizard } from '@casper2020/casper-wizard/casper-wizard.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 class CasperUploadDialog extends CasperWizard {
-  static get template() {
+  static get template () {
     return html`
       <style>
         :host {
@@ -46,7 +46,7 @@ class CasperUploadDialog extends CasperWizard {
     return 'casper-upload-dialog';
   }
 
-  static get properties() {
+  static get properties () {
     return {
       title: {
         type: String,
@@ -70,20 +70,25 @@ class CasperUploadDialog extends CasperWizard {
     super.ready();
     this.setAttribute('with-backdrop', true);
     this.addEventListener('opened-changed', e => this._onOpenedChanged(e));
+
+    this.addEventListener('drop', event => event.preventDefault());
+    this.addEventListener('dragover', event => event.preventDefault());
+    this.backdropElement.addEventListener('drop', event => event.preventDefault());
+    this.backdropElement.addEventListener('dragover', event => event.preventDefault());
   }
 
   setOptions (options) {
     super.setOptions(options);
-    this.accept                 = options.accept || this.accept;
-    this.uploadUrl              = options.upload_url;
+    this.accept = options.accept || this.accept;
+    this.uploadUrl = options.upload_url;
     this.noCancelOnOutsideClick = false;
-    this.noCancelOnEscKey       = false;
+    this.noCancelOnEscKey = false;
   }
 
   _onOpenedChanged (event) {
     this.enableNext();
     this.hideStatusAndProgress();
-    if ( event.detail.value === true ) {
+    if (event.detail.value === true) {
       this.setTitle(this.options.title || this.title);
       this.setPageTitle('Upload', this.options.pageTitle || this.pageTitle);
     }
@@ -99,7 +104,7 @@ class CasperUploadDialog extends CasperWizard {
     if (this.options.tube != undefined) {
       this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
     } else {
-      if ( typeof this.options.on_completed === 'function' ) {
+      if (typeof this.options.on_completed === 'function') {
         let callback_status = this.options.on_completed(this.options.original, this.options.original_file_path, fileInfo.type);
         this.close();
       }
@@ -120,10 +125,10 @@ class CasperUploadDialog extends CasperWizard {
   }
 
   jobCompletedOnUpload (status_code, notification, response) {
-    if ( typeof this.options.on_job_completed === 'function' ) {
+    if (typeof this.options.on_job_completed === 'function') {
       this.options.on_job_completed(status_code, notification.message, response);
     }
-    if ( notification.custom === true ) {
+    if (notification.custom === true) {
       this.showStatusPage(notification);
       this.disablePrevious();
       this.enableNext();
