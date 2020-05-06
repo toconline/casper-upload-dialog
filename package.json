@@ -1,7 +1,7 @@
 {
   "description": "Generic dialog that uploads a file to a job",
   "name": "@cloudware-casper/casper-upload-dialog",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -13,7 +13,7 @@
   },
   "main": "casper-upload-dialog.js",
   "dependencies": {
-    "@casper2020/casper-wizard": "^1.x",
+    "@cloudware-casper/casper-wizard": "^1.x",
     "@polymer/polymer": "^3.x"
   },
   "devDependencies": {

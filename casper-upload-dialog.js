@@ -18,8 +18,8 @@
   -
  */
 
-import '@casper2020/casper-wizard/casper-wizard-upload-page.js';
-import { CasperWizard } from '@casper2020/casper-wizard/casper-wizard.js';
+import '@cloudware-casper/casper-wizard/casper-wizard-upload-page.js';
+import { CasperWizard } from '@cloudware-casper/casper-wizard/casper-wizard.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 class CasperUploadDialog extends CasperWizard {
