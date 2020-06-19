@@ -37,7 +37,9 @@ class CasperUploadDialog extends CasperWizard {
         page-title="[[pageTitle]]"
         upload-url="[[uploadUrl]]"
         uploaded-file-path="{{uploaded_file_path}}"
-        original-file-path="{{original_file_path}}">
+        original-file-path="{{original_file_path}}"
+        original-file-size="{{original_file_size}}"
+        original-file-type="{{original_file_type}}">
       </casper-wizard-upload-page>
     `;
   }
@@ -94,18 +96,19 @@ class CasperUploadDialog extends CasperWizard {
     }
   }
 
-  uploadSuccessOnUpload (uploadedFile, fileInfo) {
+  uploadSuccessOnUpload () {
     this.options.original = this.uploaded_file_path;
     this.options.file = this.uploaded_file_path;
-    this.options.file_content_type = fileInfo.type;
-    this.options.file_content_length = fileInfo.size;
+    this.options.file_content_type = this.original_file_type;
+    this.options.file_content_length = this.original_file_size;
     this.options.original_file_path = this.original_file_path;
     this.options.original_file = this.original_file_path;
+
     if (this.options.tube != undefined) {
       this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
     } else {
       if (typeof this.options.on_completed === 'function') {
-        let callback_status = this.options.on_completed(this.options.original, this.options.original_file_path, fileInfo.type);
+        let callback_status = this.options.on_completed(this.options.original, this.options.original_file_path, this.original_file_type);
         this.close();
       }
     }
