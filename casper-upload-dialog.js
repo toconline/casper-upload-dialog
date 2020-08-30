@@ -103,6 +103,7 @@ export class CasperUploadDialog extends CasperWizard {
     this.options.file_content_length = this.original_file_size;
     this.options.original_file_path = this.original_file_path;
     this.options.original_file = this.original_file_path;
+    this.options.original_type = this.original_file_type;
 
     if (this.options.tube != undefined) {
       this.submitJob(this.options, this.options.timeout || 900 /* timeout secs */);
